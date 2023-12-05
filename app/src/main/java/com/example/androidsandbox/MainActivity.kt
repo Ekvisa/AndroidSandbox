@@ -9,11 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var textView: TextView
-    private lateinit var editTextPetType: EditText
-    private lateinit var editTextPetName: EditText
-    private lateinit var editTextPetAge: EditText
-    private lateinit var editTextOwnerName: EditText
+    private var textView: TextView? = null
+    private var editTextPetType: EditText? = null
+    private var editTextPetName: EditText? = null
+    private var editTextPetAge: EditText? = null
+    private var editTextOwnerName: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,33 +25,32 @@ class MainActivity : AppCompatActivity() {
         editTextPetAge = findViewById(R.id.editTextPetAge)
         editTextOwnerName = findViewById(R.id.editTextOwnerName)
 
-        textView.text = "Ветеринарный журнал"
+        textView?.text = "Ветеринарный журнал"
 
         val cuteBarsikTheCat: Cat = Cat("Barsik", 10)
         val sillyDiegoTheDog: Dog = Dog("Diego", 6)
         val crazyMaryTheParrot: Bird = Bird("Mary", 3)
         val shyBorisTheHedgehog: Animal = Animal("Boris", 4)
 
-        Log.d("Pet do smth", cuteBarsikTheCat.wash())
-        Log.d("Pet do smth", crazyMaryTheParrot.knock())
+        cuteBarsikTheCat.wash()
+        crazyMaryTheParrot.knock()
     }
 
     fun onAddPetClick(view: View) {
-        val petType = editTextPetType.text.toString()
-        val petName = editTextPetName.text.toString()
-        val petAge = editTextPetAge.text.toString()
-        val ownerName = editTextOwnerName.text.toString().takeIf { it.isNotEmpty() } ?: "no owner"
+        val petType = editTextPetType?.text.toString()
+        val petName = editTextPetName?.text.toString()
+        val petAge = editTextPetAge?.text.toString()
+        val ownerName = editTextOwnerName?.text.toString().takeIf { it.isNotEmpty() } ?: "no owner"
 
         if (petName.isNotEmpty() && petAge.isNotEmpty()) {
-            // Выводим информацию о питомце в лог
+
             Log.d("Pet was added", "Pet type: $petType, Pet name: $petName, Pet age: $petAge, Owner name: $ownerName")
             Log.d("Pet says", animalSays(petType, petName, ownerName))
 
-            // Очищаем поля ввода
-            editTextPetType.text.clear()
-            editTextPetName.text.clear()
-            editTextPetAge.text.clear()
-            editTextOwnerName.text.clear()
+            editTextPetType?.text?.clear()
+            editTextPetName?.text?.clear()
+            editTextPetAge?.text?.clear()
+            editTextOwnerName?.text?.clear()
         }
 
     }
@@ -88,26 +87,26 @@ class MainActivity : AppCompatActivity() {
             this.name = name
             this.age = age
         }
-        fun makeASound(): String {
-            return "$name makes a sound"
+        fun makeASound() {
+            Log.d("Pet do smth", "$name makes a sound")
         }
     }
 
     class Cat(name: String, age: Int) : Animal(name, age) {
-        fun wash(): String {
-            return "$name the cat is grooming"
+        fun wash() {
+            Log.d("Pet do smth", "$name the cat is grooming")
         }
     }
 
     class Dog(name: String, age: Int) : Animal(name, age) {
-        fun followCommands(): String {
-            return "$name the dog is enjoying theirs training"
+        fun followCommands() {
+            Log.d("Pet do smth", "$name the dog is enjoying theirs training")
         }
     }
 
     class Bird(name: String, age: Int) : Animal(name, age) {
-        fun knock(): String {
-            return "$name the bird pecks with theirs beak"
+        fun knock() {
+            Log.d("Pet do smth", "$name the bird pecks with theirs beak")
         }
     }
 
