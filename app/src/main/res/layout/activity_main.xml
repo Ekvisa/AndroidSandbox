@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -43,10 +44,51 @@
         android:hint="Имя владельца"
         android:layout_marginBottom="16dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Фото питомца:"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/pet_photo" />
+    </LinearLayout>
+
+
+
     <Button
         android:id="@+id/buttonAddPet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Добавить питомца"
         android:onClick="onAddPetClick"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Мемчик из интернета (добавь питомца, чтобы обновить):"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/from_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/cat_of_mother_s_friend" />
+    </LinearLayout>
+
 </LinearLayout>

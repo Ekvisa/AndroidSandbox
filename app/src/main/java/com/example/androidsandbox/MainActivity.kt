@@ -1,11 +1,18 @@
+
 package com.example.androidsandbox
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.squareup.picasso.Picasso
+import kotlin.random.Random
+
+//Задание 2: кастомный экстеншн для imageView, загружающий картинку по ссылке.
+//При добавлении питомца (при выполнении onAddPetClick) в нижнем imageView появится мемчик (строки 71 и 75)
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private var editTextPetName: EditText? = null
     private var editTextPetAge: EditText? = null
     private var editTextOwnerName: EditText? = null
+
+    private var imageView: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         editTextPetAge = findViewById(R.id.editTextPetAge)
         editTextOwnerName = findViewById(R.id.editTextOwnerName)
 
+        imageView = findViewById(R.id.from_url)
+
         textView?.text = "Ветеринарный журнал"
 
         val cuteBarsikTheCat: Cat = Cat("Barsik", 10)
@@ -34,6 +45,8 @@ class MainActivity : AppCompatActivity() {
 
         cuteBarsikTheCat.wash()
         crazyMaryTheParrot.knock()
+
+        Log.d("New string was created:", "string".addLine("Add me!"))
     }
 
     fun onAddPetClick(view: View) {
@@ -53,6 +66,18 @@ class MainActivity : AppCompatActivity() {
             editTextOwnerName?.text?.clear()
         }
 
+        val mems = arrayOf("https://avatars.dzeninfra.ru/get-zen_doc/1110951/pub_6124885201871c067c2441b1_61248999fb223510ec1dca5d/scale_1200", "https://i.pinimg.com/originals/54/a0/0c/54a00c1f25c869460ff57c5d8c0f6be3.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRZegv0cbFxtbZshbU2tcegHCm05hYefiJR7tfw6SnHQs4CEF9IaGNSjSDe6ehuoL9bfo&usqp=CAU", "https://i.pinimg.com/originals/aa/1b/ce/aa1bce17ee2e7659c01e213b3a324108.jpg", "https://cs12.pikabu.ru/post_img/2020/10/05/1/og_og_1601850346229035653.jpg", "https://cs12.pikabu.ru/post_img/big/2022/11/24/4/1669266035136690160.jpg")
+        val randomMem: String = mems.get(Random.nextInt(mems.size))
+        imageView?.loadImg(randomMem) //вызываем созданный метод у imageView
+
+    }
+
+    private fun ImageView.loadImg(l : String) { //созданный экстеншен для ImageView
+        Picasso.get().load(l).into(this)
+    }
+
+    private fun String.addLine(l : String): String { //экстеншен для String, чтобы не забыть что это
+        return this + l
     }
 
     // Пусть животные что-то говорят в зависимости от вида и наличия хозяина, чтобы было веселее
